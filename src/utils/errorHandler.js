@@ -25,10 +25,10 @@ export const ErrorTypes = {
     UNKNOWN: 'unknown'
 };
 
-export class TitanBotError extends Error {
+export class SheryBotError extends Error {
     constructor(message, type = ErrorTypes.UNKNOWN, userMessage = null, context = {}) {
         super(message);
-        this.name = 'TitanBotError';
+        this.name = 'SheryBotError';
         this.type = type;
         this.userMessage = userMessage;
         this.context = context;
@@ -38,7 +38,7 @@ export class TitanBotError extends Error {
 }
 
 export function categorizeError(error) {
-    if (error instanceof TitanBotError) {
+    if (error instanceof SheryBotError) {
         return error.type;
     }
 
@@ -350,12 +350,12 @@ export function createError(message, type = ErrorTypes.UNKNOWN, userMessage = nu
         errorCode: context?.errorCode || getDefaultErrorCodeByType(type)
     };
 
-    return new TitanBotError(message, type, userMessage, normalizedContext);
+    return new SheryBotError(message, type, userMessage, normalizedContext);
 }
 
 export default {
     ErrorTypes,
-    TitanBotError,
+    SheryBotError,
     categorizeError,
     getUserMessage,
     replyUserError,

@@ -16,6 +16,7 @@ import { initializeMusic } from './services/music/riffySetup.js';
 import { shutdownMusic } from './services/music/playerHandler.js';
 import pkg from '../package.json' with { type: 'json' };
 import { EXPECTED_SCHEMA_VERSION, EXPECTED_SCHEMA_LABEL } from './config/schemaVersion.js';
+import { startJailExpiryChecker } from './services/jailExpiryChecker.js';
 
 class TitanBot extends Client {
   constructor() {
@@ -255,6 +256,7 @@ class TitanBot extends Client {
     cron.schedule('0 6 * * *', () => checkBirthdays(this));
     cron.schedule('* * * * *', () => checkGiveaways(this));
     cron.schedule('*/15 * * * *', () => this.updateAllCounters());
+    startJailExpiryChecker(this);
   }
 
   async updateAllCounters() {
